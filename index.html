@@ -7,7 +7,7 @@ THIS CODE SHOULD NOT BE USED TO DIAGNOSE ANY KIND OF MEDICAL CONDITION.
  
 Authors in chronological order of contribution:
 Tim Riedel
-Author 2
+Manha Sadarulanam
  
 Further Information:
 http://diystream.cns.utexas.edu/
@@ -17,11 +17,10 @@ Timothy Riedel
 triedel@utexas.edu
  
 Brief Description of Goal of Code:
-blah, blah, blah,
+The goal of this code is to create a web-based diagnostic app that helps users monitor their own symptoms to determine if they have the Flu or COVID-19. As the user navigates through a sequence of pages, the app uses JavaScript event listeners to capture user symptoms via button clicks. The responses are stored in the respective variables, allowing the app to calculate the final probabilities for each condition using a specific logic table. HTML elements are used to place text, headers, and buttons on the screen, while JavaScript functions make things happen using variables and functions. 
  
 Known Issues:
-blah, blah, blah, blah
-Ignore this error message if you see it using the javaScript console: Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'interest-cohort'.
+None
 
 References:
 https://www.w3schools.com/w3css/default.asp
@@ -30,18 +29,36 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 	
 <head> 
 	<title>Hello World</title>  
-]	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link rel="stylesheet" href="w3.css">
-	<link rel="stylesheet" href="w3-colors-flat.css">
-</head> 
+	<link rel="stylesheet" href="w3-colors-flat.css"> 
 
 <script>
+      /* These variables store the count of responses for each category */
+		  var flu_count = 0; //initializing variables
+      var covid_count = 0;
 
-	//YOUR JAVASCRIPT GOES HERE
+		  /* This function increments the flu counter when a button is clicked */
+      function fluAdd(){
+        flu_count = flu_count + 1;
+      }
 
+	    /* This function increments the covid counter when a button is clicked*/
+      function covidAdd(){
+        covid_count = covid_count + 1;
+      }
+
+		  /* This function calculates the percentages and displays the result on the final page */
+		  function getResults() {
+       	var total = flu_count + covid_count; //calc total responses
+	      var fluPercent = (flu_count / total) * 100; //calc flu percent
+        var covidPercent = (covid_count / total) * 100; //calc covid percent
+
+      	var resultText = document.getElementById("results");
+        resultText.innerHTML = "Probability it is Flu = " + fluPercent + "%<br> Probability it is COVID-19 = " + covidPercent + "%";
+		  }
 </script>	
-
 
 <!-- THIS STYLE CODE HELPS MAKE YOUR APP LOOK GOOD. PROBABLY DONT MESS WITH IT -->
 <style>	
@@ -64,12 +81,89 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
     left: 0vw;
     z-index: 1;
 }
+
+  img, object{
+    max-height:90%;
+    max-width:90%;
+}
 </style>
+</head>
 
 <body>
+<div id="header" class="w3-container w3-flat-carrot">
+	<h1>Flu or COVID-19?</h1>  <!-- intro page -->
+</div>
 	
-	<!-- HERE IS WHERE ALL OF YOUR HTML PAGES GO -->
-	REPLACE THIS TEXT
+<div id="content" class="w3-container">
+	<p>Are you feeling like you might have the Flu but wonder if it is COVID-19. Answer a few short questions to find out!</p>
+	<img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUycXJjMWwybzJ6cTVyYnZmbmI3c2pqd3VlZnN0MnJwYThzOWJmdjgybSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/9Ai5dIk8xvBm0/giphy.gif" alt="DrMrBeanThumbsUp">
+  <a href="#one" class="w3-btn w3-grey w3-round"> Get Started </a> <!-- button to move forward with process -->
+	<p>The following code has been developed by students and/or researchers of the Freshman Research Initiative DIY Diagnostics Stream at The University of Texas at Austin.  This code is shared for demonstration purposes and should not be considered a product -- it is for entertainment purposes only. Any user of this code does so at their own risk. Members of the DIY Stream, FRI, and The University of Texas system are not liable for anything related to this code.</p>
+	<p>THIS CODE SHOULD NOT BE USED TO DIAGNOSE ANY KIND OF MEDICAL CONDITION.</p>  <!-- disclaimer about app -->
+</div> 
+	
+<div class="page" id="one"> <!-- creates new page -->
+<div id="header" class="w3-container w3-flat-carrot"> <!-- clear/clean header -->
+	<h1>Question 1</h1>
+</div> <!-- there to create clear format to make it more readable -->
+<div id="content" class="w3-container">
+	<p>Did your symptoms appear very suddenly?</p>   
+		<!-- prompts to click yes/no which adds to variable of covid or flu -->
+		<a href="#two"  onclick="fluAdd();" class="w3-btn w3-black"> Yes </a> <!-- button order kept in the order of Yes first and No second to keep the format constant -->
+    <a href="#two"  onclick="covidAdd();" class="w3-btn w3-black"> No </a>
+</div> <!-- /content -->
+</div>
+
+<div class="page" id="two">
+<div id="header" class="w3-container w3-flat-carrot">
+	<h1>Question 2</h1>
+</div>
+<div id="content" class="w3-container">
+	<p>Are you experiencing shortness of breath or difficulty breathing?</p>
+		<!-- prompts to click yes/no which adds to variable of covid or flu -->
+		<a href="#three"  onclick="covidAdd();" class="w3-btn w3-black"> Yes </a>
+		<a href="#three"  onclick="fluAdd();" class="w3-btn w3-black"> No </a>
+</div><!-- /content -->
+</div>	
+
+	
+<div class="page" id="three"> <!-- page 3 addition -->
+<div id="header" class="w3-container w3-flat-carrot">
+	<h1>Question 3</h1>
+</div>
+<div id="content" class="w3-container">
+	<p>Do you have severe muscle or body aches?</p>
+		<!-- prompts to click yes/no which adds to variable of covid or flu -->
+		<a href="#four"  onclick="fluAdd();" class="w3-btn w3-black"> Yes </a>
+		<a href="#four"  onclick="covidAdd();" class="w3-btn w3-black"> No </a>	
+</div><!-- /content -->
+</div>	
+
+
+<div class="page" id="four"> <!-- page 4 addition -->
+<div id="header" class="w3-container w3-flat-carrot"><!-- hopefully needed to make questions show up -->
+	<h1>Question 4</h1>
+</div>
+<div id="content" class="w3-container">
+	<p>Have you recently lost your sense of taste or smell?</p>
+		<!-- prompts to click yes/no which adds to variable of covid or flu -->
+		<a href="#results_page"  onclick="covidAdd();" class="w3-btn w3-black"> Yes </a>
+    <a href="#results_page"  onclick="fluAdd();" class="w3-btn w3-black"> No </a>
+</div><!-- /content -->
+</div>	
+
+<div class="page" id="results_page"> <!-- results addition -->
+<div id="header" class="w3-container w3-flat-carrot">
+	<h1>Results</h1>
+</div>
+<div id="content" class="w3-container">
+	<a onclick="getResults();" class="w3-btn w3-black">Click for Diagnosis</a>  <!-- button to display probability of flu or COVID -->
+  <p id="results"></p> 
+</div><!-- /content -->
+</div>	
+
+<footer class="w3-bottom w3-container w3-flat-carrot">
+</footer>
 	
 </body>
 </html>
